@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Konba Rika · Picoteo y atardeceres en Barrika</title>
+  <meta name="description" content="Picoteo, txakoli, menú del día y Sunset Sessions en la campa de Barrika, frente al Cantábrico. Errepidea Nagusia 13, Barrika (Bizkaia).">
+  <meta name="theme-color" content="#14213a">
+  <meta property="og:title" content="Konba Rika · Barrika">
+  <meta property="og:description" content="Picoteo, txakoli y puestas de sol en la campa de Barrika.">
+  <meta property="og:image" content="assets/img/p0336.jpg">
+  <link rel="preload" href="assets/fonts/Bricolage-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/fonts-bricolage.css">
+  <link rel="stylesheet" href="assets/vendor/phosphor/style.css">
+  <link rel="stylesheet" href="assets/css/site.css?v=3">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Konba Rika",
+    "address": { "@type": "PostalAddress", "streetAddress": "Errepidea Nagusia 13", "postalCode": "48650", "addressLocality": "Barrika", "addressRegion": "Bizkaia", "addressCountry": "ES" },
+    "telephone": "+34 946 75 12 76",
+    "servesCuisine": ["Vasca", "Marisco", "Picoteo"],
+    "acceptsReservations": true
+  }
+  </script>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#inicio">Konba Rika</a>
+    <ul class="nav-links">
+      <li><a href="#sobre">El sitio</a></li>
+      <li><a href="#cartelera">Cartelera</a></li>
+      <li><a href="#carta">La carta</a></li>
+      <li><a href="#espacios">Rincones</a></li>
+      <li><a href="#galeria">Galería</a></li>
+    </ul>
+    <a class="btn btn-sun" href="#reservar">Reservar mesa</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu"><i class="ph ph-list"></i></button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <div class="top">
+    <span class="brand">Konba Rika</span>
+    <button class="nav-toggle" style="display:inline-flex" id="navClose" aria-label="Cerrar menú"><i class="ph ph-x"></i></button>
+  </div>
+  <nav>
+    <a href="#sobre">El sitio</a>
+    <a href="#cartelera">Cartelera</a>
+    <a href="#carta">La carta</a>
+    <a href="#espacios">Rincones</a>
+    <a href="#galeria">Galería</a>
+    <a href="#reservar">Contacto</a>
+  </nav>
+  <a class="btn" href="#reservar">Reservar mesa</a>
+</div>
+
+<main>
+  <!-- HERO: vídeo del local a pantalla completa -->
+  <section class="hero" id="inicio" aria-label="Konba Rika">
+    <div class="hero-media" aria-hidden="true">
+      <video id="heroVideo" autoplay muted loop playsinline preload="auto"
+        poster="assets/img/hero-poster.jpg"
+        data-desktop="assets/video/hero.mp4" data-desktop-poster="assets/img/hero-poster.jpg"
+        data-mobile="assets/video/hero-m.mp4" data-mobile-poster="assets/img/hero-m-poster.jpg"></video>
+    </div>
+    <div class="hero-shade" aria-hidden="true"></div>
+
+    <div class="sticker hero-in" aria-hidden="true">
+      <svg viewBox="0 0 140 140"><defs><path id="stHero" d="M70,70 m-52,0 a52,52 0 1,1 104,0 a52,52 0 1,1 -104,0"/></defs>
+        <circle class="disc" cx="70" cy="70" r="68"/>
+        <text><textPath href="#stHero" textLength="324">Ongi etorri • Barrika • Bizkaia • </textPath></text>
+      </svg>
+      <div class="ico"><i class="ph ph-sun"></i></div>
+    </div>
+
+    <div class="hero-body">
+      <div class="wrap">
+        <p class="eyebrow hero-in"><span class="dot"></span> Barrika, Bizkaia · frente al Cantábrico</p>
+        <h1 class="wordmark hero-in">Konba Rika</h1>
+        <div class="hero-foot hero-in">
+          <p class="lead">Picoteo, txakoli y puestas de sol en la campa de Barrika.</p>
+          <div class="hero-ctas">
+            <a class="btn btn-sun" href="#reservar">Reservar mesa <i class="ph ph-arrow-right"></i></a>
+            <a class="btn" href="#carta">Ver la carta</a>
+          </div>
+          <div class="chapter" aria-hidden="true">
+            <span class="ch-num" id="chNum">01</span>
+            <span class="ch-name" id="chName">La campa</span>
+            <span class="ch-bar"><i id="chBar"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUESINA -->
+  <div class="marquee" aria-label="Picoteo, txakoli, menú del día, Sunset Sessions, arroz con bogavante, grupos hasta 150">
+    <div class="track" aria-hidden="true">
+      <div class="run">Picoteo <i class="ph ph-sun"></i> Txakoli <i class="ph ph-sun"></i> Menú del día 22 € <i class="ph ph-sun"></i> Sunset Sessions <i class="ph ph-sun"></i> Arroz con bogavante <i class="ph ph-sun"></i> Grupos hasta 150 <i class="ph ph-sun"></i></div>
+      <div class="run">Picoteo <i class="ph ph-sun"></i> Txakoli <i class="ph ph-sun"></i> Menú del día 22 € <i class="ph ph-sun"></i> Sunset Sessions <i class="ph ph-sun"></i> Arroz con bogavante <i class="ph ph-sun"></i> Grupos hasta 150 <i class="ph ph-sun"></i></div>
+    </div>
+  </div>
+
+  <!-- EL SITIO -->
+  <section class="section" id="sobre">
+    <div class="wrap">
+      <div class="intro reveal">
+        <h2>Una campa, una furgo y el <span class="hl">Cantábrico</span> delante</h2>
+        <div class="intro-side">
+          <p class="lead">Bar y restaurante en lo alto de la costa de Barrika. Se viene a picar algo, a comer de menú entre semana o a quedarse hasta que se pone el sol.</p>
+          <div class="facts">
+            <div class="fact"><b>150</b><span>personas en sala</span></div>
+            <div class="fact"><b>22 €</b><span>menú del día</span></div>
+            <div class="fact"><b>+20</b><span>platos para picar</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bento">
+        <figure class="ph-a reveal"><img src="assets/img/p0336.jpg" alt="La campa con mesas bajo la pérgola y la furgoneta clásica" loading="lazy"><figcaption class="ph-tag">La campa</figcaption></figure>
+        <figure class="ph-b reveal"><img src="assets/img/p0403-sm.jpg" alt="El mural de Konba Rika con la terraza delante" loading="lazy"><figcaption class="ph-tag">El mural</figcaption></figure>
+        <figure class="ph-c reveal"><img src="assets/img/p0361-sm.jpg" alt="Mesa junto al ventanal con el mar al fondo" loading="lazy"><figcaption class="ph-tag">Vistas</figcaption></figure>
+        <div class="ph-d stamp-tile reveal" aria-hidden="true">
+          <div class="stamp">
+            <svg viewBox="0 0 130 130"><defs><path id="stPost" d="M65,65 m-47,0 a47,47 0 1,1 94,0 a47,47 0 1,1 -94,0"/></defs>
+              <circle class="ring" cx="65" cy="65" r="62"/><circle class="ring" cx="65" cy="65" r="33"/>
+              <text><textPath href="#stPost" textLength="292">Barrika • 48650 • Bizkaia • </textPath></text>
+            </svg>
+            <div class="mid"><i class="ph ph-sun-horizon"></i></div>
+          </div>
+        </div>
+        <figure class="ph-e reveal"><img src="assets/img/p0354-sm.jpg" alt="La sala con mesas de madera y ventanales" loading="lazy"><figcaption class="ph-tag">La sala</figcaption></figure>
+        <figure class="ph-f reveal"><img src="assets/img/p0340-sm.jpg" alt="La furgoneta clásica negra junto a la rampa" loading="lazy"><figcaption class="ph-tag">La furgo</figcaption></figure>
+        <figure class="ph-g reveal"><img src="assets/img/p0370-sm.jpg" alt="Barricas de Pomal y taburetes junto a la barra" loading="lazy"><figcaption class="ph-tag">La barra</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARTELERA -->
+  <section class="section billboard on-dark" id="cartelera">
+    <div class="wrap">
+      <div class="bb-head reveal">
+        <div>
+          <h2>La <span style="color:var(--sand)">cartelera</span></h2>
+          <p class="lead">Música al atardecer, noches de txakoli y mesas largas. Apúntate o guárdalo en el calendario.</p>
+        </div>
+        <div class="chips" role="group" aria-label="Filtrar eventos" id="eventFilters">
+          <button class="chip" aria-pressed="true" data-cat="all">Todos</button>
+          <button class="chip" aria-pressed="false" data-cat="musica">Música</button>
+          <button class="chip" aria-pressed="false" data-cat="gastro">Gastronomía</button>
+          <button class="chip" aria-pressed="false" data-cat="grupos">Grupos</button>
+          <button class="chip" aria-pressed="false" data-cat="fiesta">Fiesta</button>
+        </div>
+      </div>
+      <div class="posters" id="posters"></div>
+    </div>
+  </section>
+
+  <!-- CARTA -->
+  <section class="section menu scallop" id="carta">
+    <div class="wrap">
+      <div class="menu-top">
+        <div class="reveal">
+          <h2>Para picar <span class="hl">y repetir</span></h2>
+          <p class="lead">La carta de siempre, ahora también en el móvil. Escanea el QR de tu mesa.</p>
+        </div>
+        <figure class="menu-photo reveal">
+          <img src="assets/img/barra.jpg" alt="La barra de Konba Rika con la vitrina de pintxos y la pizarra" loading="lazy">
+          <figcaption class="ph-tag">La barra</figcaption>
+        </figure>
+      </div>
+      <div class="menu-grid">
+        <div>
+          <div class="tabs" role="tablist" aria-label="Secciones de la carta">
+            <button class="tab" role="tab" aria-selected="true" aria-controls="tp-picoteo" id="t-picoteo">Picoteo</button>
+            <button class="tab" role="tab" aria-selected="false" aria-controls="tp-dia" id="t-dia">Menú del día</button>
+            <button class="tab" role="tab" aria-selected="false" aria-controls="tp-vinos" id="t-vinos">Vinos y vermut</button>
+          </div>
+          <div class="tab-panel" role="tabpanel" id="tp-picoteo" aria-labelledby="t-picoteo">
+            <div class="menu-cols" id="menuPicoteo"></div>
+            <p class="menu-note">Precios con IVA (10%) incluido. Pregunta por alérgenos a nuestro equipo.</p>
+          </div>
+          <div class="tab-panel" role="tabpanel" id="tp-dia" aria-labelledby="t-dia" hidden>
+            <div id="menuDia"></div>
+          </div>
+          <div class="tab-panel" role="tabpanel" id="tp-vinos" aria-labelledby="t-vinos" hidden>
+            <div class="wine-grid" id="menuVinos"></div>
+            <p class="menu-note" style="margin-top:1.5rem">Vinos por copa en barra. Pregunta por la carta de vinos completa.</p>
+          </div>
+        </div>
+        <div class="tent-wrap reveal">
+          <aside class="tent" aria-label="Carta con QR en mesa">
+            <div class="tent-sun" aria-hidden="true"></div>
+            <span class="brand">Konba Rika</span>
+            <div class="qr-box" id="qrBox" role="img" aria-label="Código QR de la carta digital"></div>
+            <small>Escanea y mira la carta</small>
+            <div class="mesa">Mesa 12</div>
+          </aside>
+          <div class="sticker" aria-hidden="true">
+            <svg viewBox="0 0 140 140"><defs><path id="stArroz" d="M70,70 m-53,0 a53,53 0 1,1 106,0 a53,53 0 1,1 -106,0"/></defs>
+              <circle class="disc" cx="70" cy="70" r="68"/>
+              <text><textPath href="#stArroz" textLength="330">Arroz con bogavante • por encargo • </textPath></text>
+            </svg>
+            <div class="ico"><span>28 €<small>persona</small></span></div>
+          </div>
+          <p class="tent-note">Cada mesa lleva su QR. Si un plato se acaba, sale tachado al momento.</p>
+          <a class="btn btn-sm" style="margin-top:14px" href="carta.html?mesa=12" id="qrLink">Abrir carta digital <i class="ph ph-arrow-up-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CON SOL O CON TXIRIMIRI -->
+  <section class="section" id="espacios">
+    <div class="wrap weather-head reveal">
+      <h2>Con sol o con <span class="hl">txirimiri</span></h2>
+      <p class="lead">Aquí el tiempo cambia en cinco minutos. Por eso tenemos plan para los dos.</p>
+    </div>
+    <div class="weather">
+      <div class="half sol">
+        <img src="assets/img/p0353.jpg" alt="Terraza sobre la hierba con palmeras" loading="lazy">
+        <div class="label reveal">
+          <span class="display"><i class="ph ph-sun"></i> Con sol</span>
+          <p>Mesas sobre la hierba, la furgo y el mural. Vermut con el mar delante.</p>
+        </div>
+      </div>
+      <div class="half txiri">
+        <img src="assets/img/txirimiri.jpg" alt="Sala acristalada con vistas a la campa y al mar" loading="lazy">
+        <div class="label reveal">
+          <span class="display"><i class="ph ph-cloud-rain"></i> Con txirimiri</span>
+          <p>Sala acristalada para 150 personas. Ves el mar sin mojarte.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- RINCONES -->
+    <div class="wrap rin-head reveal">
+      <div>
+        <p class="kicker">Siete rincones</p>
+        <h3 class="rin-title">Elige dónde sentarte</h3>
+      </div>
+      <div class="gallery-nav">
+        <button class="icon-btn" id="rinPrev" aria-label="Rincón anterior"><i class="ph ph-arrow-left"></i></button>
+        <button class="icon-btn" id="rinNext" aria-label="Rincón siguiente"><i class="ph ph-arrow-right"></i></button>
+      </div>
+    </div>
+    <div class="rincones" id="rincones">
+      <article class="rin"><div class="rin-ph"><img src="assets/img/p0351-sm.jpg" alt="Terraza con pérgola y el mar al fondo" loading="lazy"></div><span class="rin-n">01</span><h4>La campa</h4><p>Mesas sobre la hierba, pérgola y el mar al fondo.</p></article>
+      <article class="rin"><div class="rin-ph"><img src="assets/img/p0338-sm.jpg" alt="Furgoneta clásica negra en la campa" loading="lazy" style="object-position:62% 50%"></div><span class="rin-n">02</span><h4>La furgo</h4><p>Una furgoneta clásica aparcada en plena campa.</p></article>
+      <article class="rin"><div class="rin-ph"><img src="assets/img/p0404-sm.jpg" alt="Mural con la terraza de baldosas" loading="lazy"></div><span class="rin-n">03</span><h4>El mural</h4><p>Terraza al sol junto a la pared pintada de la casa.</p></article>
+      <article class="rin"><div class="rin-ph"><img src="assets/img/p0396-sm.jpg" alt="La sala con la alfombra de Konba Rika" loading="lazy"></div><span class="rin-n">04</span><h4>La sala</h4><p>Madera, plantas y luz. Hasta 150 personas.</p></article>
+      <article class="rin"><div class="rin-ph"><img src="assets/img/p0373-sm.jpg" alt="Mesas junto al ventanal" loading="lazy"></div><span class="rin-n">05</span><h4>El ventanal</h4><p>Comer viendo el mar, llueva o no.</p></article>
+      <article class="rin"><div class="rin-ph"><img src="assets/img/p0369-sm.jpg" alt="Plantas y taburetes junto a la barra" loading="lazy"></div><span class="rin-n">06</span><h4>La barra</h4><p>Barricas, txakoli y pintxos a la vista.</p></article>
+      <article class="rin"><div class="rin-ph"><img src="assets/img/p0406-sm.jpg" alt="Jardín de entrada con palmeras" loading="lazy" style="object-position:40% 50%"></div><span class="rin-n">07</span><h4>El jardín</h4><p>Palmeras y piedra a la entrada.</p></article>
+    </div>
+
+    <div class="wrap">
+      <div class="groups reveal">
+        <div class="g-ph"><img src="assets/img/p0355-sm.jpg" alt="Sala preparada con mesas largas" loading="lazy"></div>
+        <div class="g-body">
+          <span class="big">150</span>
+          <div>
+            <span class="display">Grupos y celebraciones</span>
+            <p>Comidas de empresa, cumpleaños, comuniones o despedidas. Te preparamos menú y espacio.</p>
+          </div>
+          <a class="btn" href="#reservar" data-motivo="evento">Pedir presupuesto</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERÍA -->
+  <section class="section gallery scallop" id="galeria">
+    <div class="wrap gallery-head reveal">
+      <h2>Desde <span class="hl-paper">la campa</span></h2>
+      <a class="btn btn-sand insta" href="#" aria-label="Instagram de Konba Rika"><i class="ph ph-instagram-logo"></i> Síguenos</a>
+    </div>
+    <div class="wrap">
+      <div class="masonry" id="masonry">
+        <figure class="v"><video muted loop playsinline preload="none" poster="assets/img/v0380-poster.jpg" data-src="assets/video/v0380.mp4"></video></figure>
+        <figure><img src="assets/img/p0363-sm.jpg" alt="Palmera y mesas de madera en la sala" loading="lazy"></figure>
+        <figure><img src="assets/img/p0359-sm.jpg" alt="Palmera junto a las mesas de madera" loading="lazy"></figure>
+        <figure><img src="assets/img/p0345-sm.jpg" alt="Fachada de Konba Rika" loading="lazy"></figure>
+        <figure class="v"><video muted loop playsinline preload="none" poster="assets/img/v0386-poster.jpg" data-src="assets/video/v0386.mp4"></video></figure>
+        <figure><img src="assets/img/p0405-sm.jpg" alt="Camino de entrada con la pérgola" loading="lazy"></figure>
+        <figure><img src="assets/img/p0375-sm.jpg" alt="Ventanal con el rótulo de Konba Rika" loading="lazy"></figure>
+        <figure class="v"><video muted loop playsinline preload="none" poster="assets/img/v0383-poster.jpg" data-src="assets/video/v0383.mp4"></video></figure>
+        <figure><img src="assets/img/p0378-sm.jpg" alt="Sala con plantas y vistas" loading="lazy"></figure>
+        <figure><img src="assets/img/p0362-sm.jpg" alt="Mesa redonda junto a la ventana" loading="lazy"></figure>
+        <figure><img src="assets/img/p0408-sm.jpg" alt="Jardín y palmera con la furgo al fondo" loading="lazy"></figure>
+        <figure class="v"><video muted loop playsinline preload="none" poster="assets/img/v0384-poster.jpg" data-src="assets/video/v0384.mp4"></video></figure>
+        <figure><img src="assets/img/p0365-sm.jpg" alt="Palmera junto a la ventana" loading="lazy"></figure>
+        <figure><img src="assets/img/p0401-sm.jpg" alt="Barrica-mesa junto al ventanal" loading="lazy"></figure>
+        <figure class="v"><video muted loop playsinline preload="none" poster="assets/img/v0387-poster.jpg" data-src="assets/video/v0387.mp4"></video></figure>
+        <figure><img src="assets/img/p0349-sm.jpg" alt="Esquina de la casa con el cielo de Barrika" loading="lazy"></figure>
+        <figure><img src="assets/img/p0377-sm.jpg" alt="Mesas con plantas junto al ventanal" loading="lazy"></figure>
+        <figure class="v"><video muted loop playsinline preload="none" poster="assets/img/v0382-poster.jpg" data-src="assets/video/v0382.mp4"></video></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESERVAS -->
+  <section class="section book" id="reservar">
+    <div class="wrap book-grid">
+      <div class="reveal">
+        <h2>Reserva <span class="hl">tu mesa</span></h2>
+        <p class="lead">Te llamamos para confirmar. Si sois más de 12, cuéntanos el plan.</p>
+        <form class="form" id="bookForm" novalidate>
+          <div class="field">
+            <label for="f-nombre">Nombre</label>
+            <input id="f-nombre" name="nombre" autocomplete="name" required>
+            <span class="err" aria-live="polite"></span>
+          </div>
+          <div class="field">
+            <label for="f-tel">Teléfono</label>
+            <input id="f-tel" name="tel" type="tel" autocomplete="tel" inputmode="tel" required>
+            <span class="err" aria-live="polite"></span>
+          </div>
+          <div class="field">
+            <label for="f-fecha">Fecha</label>
+            <input id="f-fecha" name="fecha" type="date" required>
+            <span class="err" aria-live="polite"></span>
+          </div>
+          <div class="field">
+            <label for="f-hora">Hora</label>
+            <select id="f-hora" name="hora" required>
+              <option value="">Elige hora</option>
+              <option>13:00</option><option>13:30</option><option>14:00</option><option>14:30</option><option>15:00</option>
+              <option>20:00</option><option>20:30</option><option>21:00</option><option>21:30</option><option>22:00</option>
+            </select>
+            <span class="err" aria-live="polite"></span>
+          </div>
+          <div class="field">
+            <label for="f-pax">Personas</label>
+            <select id="f-pax" name="pax">
+              <option>2</option><option>1</option><option>3</option><option>4</option><option>5</option><option>6</option><option>8</option><option>10</option><option>12</option><option>Más de 12</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-motivo">Plan</label>
+            <select id="f-motivo" name="motivo">
+              <option value="mesa">Comida o cena</option>
+              <option value="menu">Menú del día</option>
+              <option value="evento">Evento o celebración</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label for="f-com">Comentarios</label>
+            <textarea id="f-com" name="comentarios"></textarea>
+            <span class="help">Alergias, trona, terraza o sala, arroz con bogavante por encargo...</span>
+          </div>
+          <button class="btn btn-sun" type="submit">Reservar mesa <i class="ph ph-arrow-right"></i></button>
+          <div class="form-ok" id="formOk" role="status">
+            <strong>Recibido</strong>
+            <span>Te llamamos para confirmar la reserva. Eskerrik asko.</span>
+          </div>
+        </form>
+      </div>
+      <aside class="visit reveal">
+        <div class="photo"><img src="assets/img/p0405-sm.jpg" alt="Entrada a Konba Rika con jardín, furgoneta y mar al fondo" loading="lazy"></div>
+        <div class="body">
+          <div class="row"><i class="ph ph-map-pin"></i><div><b>Errepidea Nagusia 13</b><span>48650 Barrika, Bizkaia</span></div></div>
+          <div class="row"><i class="ph ph-phone"></i><div><b>946 75 12 76</b><span>Reservas y grupos</span></div></div>
+          <div class="row"><i class="ph ph-clock"></i><div><b>Menú del día de lunes a viernes</b><span>Fines de semana, picoteo y terraza. Horario de temporada en Instagram.</span></div></div>
+          <div class="btns">
+            <a class="btn btn-sm" href="https://www.google.com/maps/search/?api=1&query=Konba+Rika+Barrika" target="_blank" rel="noopener">Cómo llegar <i class="ph ph-arrow-up-right"></i></a>
+            <a class="btn btn-sm btn-sand" href="tel:+34946751276">Llamar <i class="ph ph-phone"></i></a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<div class="awning" aria-hidden="true"></div>
+<footer class="footer">
+  <div class="wrap">
+    <div class="giant display" aria-hidden="true">Konba Rika</div>
+    <div class="footer-grid">
+      <div>
+        <p class="agur">Agur, y hasta la próxima puesta de sol</p>
+      </div>
+      <div>
+        <h4>Visítanos</h4>
+        <ul>
+          <li><a href="https://www.google.com/maps/search/?api=1&query=Konba+Rika+Barrika" target="_blank" rel="noopener">Errepidea Nagusia 13, Barrika</a></li>
+          <li><a href="tel:+34946751276">946 75 12 76</a></li>
+          <li><a href="#">Instagram</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Explora</h4>
+        <ul>
+          <li><a href="#cartelera">Cartelera</a></li>
+          <li><a href="carta.html">Carta digital</a></li>
+          <li><a href="#espacios">Grupos y celebraciones</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Konba Rika</span>
+      <a href="equipo.html"><i class="ph ph-pencil-simple"></i> Acceso equipo</a>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/vendor/qrcode.min.js"></script>
+<script src="assets/js/data.js?v=3"></script>
+<script src="assets/js/main.js?v=3"></script>
+</body>
+</html>

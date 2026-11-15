@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panel de equipo · Konba Rika</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#12213a">
+  <link rel="stylesheet" href="assets/css/fonts-bricolage.css">
+  <link rel="stylesheet" href="assets/vendor/phosphor/style.css">
+  <link rel="stylesheet" href="assets/css/site.css?v=3">
+  <style>
+    .p-head { background: var(--navy); color: var(--on-navy); }
+    .p-head .wrap { display: flex; align-items: center; gap: 16px; height: 72px; }
+    .p-head .brand { font-size: 1.3rem; }
+    .p-head .tag { font-size: 0.9rem; color: var(--on-navy-soft); }
+    .p-head .links { margin-left: auto; display: flex; gap: 8px; }
+    .p-head { --hard: var(--sand); }
+    .p-intro { padding: 44px 0 8px; }
+    .p-intro h1 { font-size: clamp(2.4rem, 5vw, 3.4rem); line-height: 1; }
+    .p-intro p { margin-top: 10px; color: var(--ink-soft); max-width: 60ch; }
+    .p-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; padding: 28px 0 80px; align-items: start; }
+    .panel { background: var(--surface); padding: clamp(22px, 3vw, 32px); border: 2px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); }
+    .panel h2 { font-size: 2.2rem; display: flex; align-items: center; gap: 10px; }
+    .panel h2 i { font-size: 1.4rem; color: var(--accent); }
+    .panel > p { color: var(--ink-soft); margin-top: 6px; font-size: 0.96rem; }
+    .panel .form { margin-top: 1.4rem; }
+    .pics { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+    .pics label { position: relative; cursor: pointer; border-radius: 10px; overflow: hidden; aspect-ratio: 1; border: 2px solid transparent; }
+    .pics input { position: absolute; opacity: 0; }
+    .pics img { width: 100%; height: 100%; object-fit: cover; }
+    .pics input:checked + img { outline: 3px solid var(--accent); outline-offset: -3px; }
+    .pics input:focus-visible + img { outline: 3px solid var(--accent); outline-offset: -3px; }
+    .ev-list { list-style: none; padding: 0; margin: 1.6rem 0 0; display: grid; gap: 10px; }
+    .ev-list li { display: grid; grid-template-columns: 56px 1fr auto; gap: 14px; align-items: center; padding: 10px; border-radius: 12px; background: var(--surface-2); }
+    .ev-list img { width: 56px; height: 56px; border-radius: 10px; object-fit: cover; }
+    .ev-list b { font-weight: 500; display: block; }
+    .ev-list span { font-size: 0.86rem; color: var(--ink-soft); }
+    .ev-list .new { color: var(--accent); font-weight: 500; }
+    .del { width: 40px; height: 40px; border-radius: 999px; border: 1px solid var(--line); background: transparent; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+    .del:hover { border-color: var(--accent); color: var(--accent); }
+    .stack { display: grid; gap: 24px; }
+    .md-group { display: grid; gap: 8px; margin-top: 14px; }
+    .md-group > span { font-size: 0.9rem; font-weight: 500; }
+    .md-group input { height: 46px; padding: 0 14px; border-radius: var(--r-field); border: 1px solid color-mix(in srgb, var(--ink) 28%, transparent); background: var(--surface); color: var(--ink); font: inherit; font-weight: 400; }
+    .md-group input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+    .row-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
+    .out-list { margin-top: 14px; max-height: 420px; overflow: auto; display: grid; gap: 2px; }
+    .out-list label { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 4px; border-bottom: 1px solid var(--line); cursor: pointer; }
+    .out-list input { width: 20px; height: 20px; accent-color: var(--accent); }
+    .out-list small { color: var(--ink-soft); display: block; font-size: 0.8rem; }
+    @media (max-width: 900px) { .p-grid { grid-template-columns: 1fr; } .pics { grid-template-columns: repeat(3, 1fr); } .p-head .tag { display: none; } }
+  </style>
+</head>
+<body>
+  <header class="p-head">
+    <div class="wrap">
+      <a class="brand" href="index.html" style="color:inherit;text-decoration:none">Konba Rika</a>
+      <span class="tag">Panel de equipo</span>
+      <div class="links">
+        <a class="btn btn-sm" href="index.html#cartelera">Ver web</a>
+        <a class="btn btn-sm btn-sand" href="carta.html?mesa=12">Ver carta</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="p-intro">
+      <h1>Hola, equipo</h1>
+      <p>Publica un evento, cambia el menú del día o marca un plato como agotado. Los cambios aparecen al momento en la web y en la carta QR.</p>
+    </div>
+
+    <div class="p-grid">
+      <section class="panel" aria-labelledby="h-ev">
+        <h2 id="h-ev"><i class="ph ph-confetti"></i> Publicar evento</h2>
+        <p>Rellena los datos y pulsa publicar. Sale en la agenda de la web ordenado por fecha.</p>
+        <form class="form" id="evForm" novalidate>
+          <div class="field full">
+            <label for="e-titulo">Título</label>
+            <input id="e-titulo" required placeholder="">
+            <span class="err" aria-live="polite"></span>
+          </div>
+          <div class="field">
+            <label for="e-fecha">Fecha</label>
+            <input id="e-fecha" type="date" required>
+            <span class="err" aria-live="polite"></span>
+          </div>
+          <div class="field">
+            <label for="e-hora">Hora</label>
+            <input id="e-hora" type="time" value="20:00" required>
+            <span class="err" aria-live="polite"></span>
+          </div>
+          <div class="field full">
+            <label for="e-cat">Tipo</label>
+            <select id="e-cat">
+              <option value="musica">Música</option>
+              <option value="gastro">Gastronomía</option>
+              <option value="grupos">Grupos</option>
+              <option value="fiesta">Fiesta</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label for="e-texto">Descripción corta</label>
+            <textarea id="e-texto" maxlength="160"></textarea>
+            <span class="help">Una o dos frases. Máximo 160 caracteres.</span>
+          </div>
+          <fieldset class="field full" style="border:0;padding:0;margin:0">
+            <legend style="font-size:.9rem;font-weight:500;margin-bottom:8px">Foto</legend>
+            <div class="pics" id="pics"></div>
+          </fieldset>
+          <button class="btn btn-accent" type="submit"><i class="ph ph-plus"></i> Publicar evento</button>
+        </form>
+        <ul class="ev-list" id="evList"></ul>
+      </section>
+
+      <div class="stack">
+        <section class="panel" aria-labelledby="h-md">
+          <h2 id="h-md"><i class="ph ph-fork-knife"></i> Menú del día</h2>
+          <p>Lo que escribas aquí sale en la web y en la carta QR.</p>
+          <form id="mdForm">
+            <div class="md-group"><span>Precio (€)</span><input id="md-precio" inputmode="decimal" aria-label="Precio del menú"></div>
+            <div class="md-group" data-k="primeros"><span>Primeros</span></div>
+            <div class="md-group" data-k="segundos"><span>Segundos</span></div>
+            <div class="md-group" data-k="postres"><span>Postres</span></div>
+            <div class="row-btns">
+              <button class="btn btn-accent btn-sm" type="submit"><i class="ph ph-check"></i> Guardar menú</button>
+              <button class="btn btn-ghost btn-sm" type="button" id="mdReset">Restaurar</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="panel" aria-labelledby="h-out">
+          <h2 id="h-out"><i class="ph ph-fish"></i> Agotado hoy</h2>
+          <p>Marca lo que se ha acabado. En la carta aparece tachado.</p>
+          <div class="out-list" id="outList"></div>
+          <div class="row-btns"><button class="btn btn-ghost btn-sm" type="button" id="outReset">Quitar todos</button></div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="assets/js/data.js?v=3"></script>
+  <script>
+  (function () {
+    var esc = KR.esc;
+    var $ = function (s) { return document.querySelector(s); };
+    var toastEl = $("#toast"), tt;
+    function toast(m) { toastEl.textContent = m; toastEl.classList.add("is-visible"); clearTimeout(tt); tt = setTimeout(function () { toastEl.classList.remove("is-visible"); }, 2600); }
+
+    /* Fotos disponibles */
+    var fotos = ["p0351", "p0400", "p0402", "p0354", "p0396", "p0373", "p0336", "p0369"];
+    $("#pics").innerHTML = fotos.map(function (f, i) {
+      return '<label><input type="radio" name="foto" value="assets/img/' + f + '-sm.jpg"' + (i === 0 ? " checked" : "") + '><img src="assets/img/' + f + '-sm.jpg" alt="Foto ' + (i + 1) + '"></label>';
+    }).join("");
+    $("#e-fecha").min = new Date().toISOString().slice(0, 10);
+
+    function renderList() {
+      var extraIds = KR.store.get("eventos", []).map(function (e) { return e.id; });
+      $("#evList").innerHTML = KR.getEventos().map(function (e) {
+        var f = KR.fmtFecha(e.fecha);
+        var nuevo = extraIds.indexOf(e.id) > -1;
+        return '<li><img src="' + esc(e.img) + '" alt=""><div><b>' + esc(e.titulo) + '</b><span>' + f.semana + " " + f.dia + " " + f.mes + " · " + esc(e.hora) + " h" + (nuevo ? ' · <span class="new">Nuevo</span>' : "") + '</span></div>' +
+          '<button class="del" data-id="' + esc(e.id) + '" aria-label="Quitar ' + esc(e.titulo) + '"><i class="ph ph-trash"></i></button></li>';
+      }).join("");
+    }
+    renderList();
+
+    $("#evList").addEventListener("click", function (ev) {
+      var b = ev.target.closest(".del"); if (!b) return;
+      var id = b.dataset.id;
+      var extra = KR.store.get("eventos", []);
+      if (extra.some(function (e) { return e.id === id; })) {
+        KR.store.set("eventos", extra.filter(function (e) { return e.id !== id; }));
+      } else {
+        var oc = KR.store.get("eventos-ocultos", []); oc.push(id); KR.store.set("eventos-ocultos", oc);
+      }
+      renderList(); toast("Evento quitado de la web");
+    });
+
+    $("#evForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var ok = true;
+      ["#e-titulo", "#e-fecha", "#e-hora"].forEach(function (s) {
+        var i = $(s), f = i.closest(".field"), msg = i.value.trim() ? "" : "Este campo es necesario.";
+        f.classList.toggle("has-error", !!msg); f.querySelector(".err").textContent = msg; if (msg) ok = false;
+      });
+      if (!ok) return;
+      var extra = KR.store.get("eventos", []);
+      extra.push({
+        id: "ev-" + Date.now(), titulo: $("#e-titulo").value.trim(), cat: $("#e-cat").value,
+        fecha: $("#e-fecha").value, hora: $("#e-hora").value,
+        texto: $("#e-texto").value.trim() || "Más información en el local.",
+        img: (document.querySelector('input[name="foto"]:checked') || {}).value || "assets/img/p0351-sm.jpg",
+      });
+      if (!KR.store.set("eventos", extra)) { toast("No se pudo guardar en este navegador"); return; }
+      e.target.reset(); $("#e-hora").value = "20:00"; document.querySelector('input[name="foto"]').checked = true;
+      renderList(); toast("Evento publicado en la web");
+    });
+
+    /* Menú del día */
+    function fillMenu(m) {
+      $("#md-precio").value = m.precio;
+      ["primeros", "segundos", "postres"].forEach(function (k) {
+        var g = document.querySelector('.md-group[data-k="' + k + '"]');
+        g.querySelectorAll("input").forEach(function (i) { i.remove(); });
+        for (var n = 0; n < 3; n++) {
+          var inp = document.createElement("input");
+          inp.value = (m[k] || [])[n] || ""; inp.setAttribute("aria-label", k + " " + (n + 1));
+          g.appendChild(inp);
+        }
+      });
+    }
+    fillMenu(KR.getMenuDia());
+    $("#mdForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var m = Object.assign({}, KR.menuDiaDefault, { precio: $("#md-precio").value.trim() || KR.menuDiaDefault.precio });
+      ["primeros", "segundos", "postres"].forEach(function (k) {
+        m[k] = Array.prototype.map.call(document.querySelectorAll('.md-group[data-k="' + k + '"] input'), function (i) { return i.value.trim(); }).filter(Boolean);
+      });
+      KR.store.set("menu-dia", m); toast("Menú del día actualizado");
+    });
+    $("#mdReset").addEventListener("click", function () { KR.store.del("menu-dia"); fillMenu(KR.menuDiaDefault); toast("Menú restaurado"); });
+
+    /* Agotados */
+    function renderOut() {
+      var ag = KR.getAgotados();
+      $("#outList").innerHTML = KR.carta.map(function (g) {
+        return g.platos.map(function (p) {
+          return '<label><span>' + esc(p.nombre) + '<small>' + esc(g.nombre) + '</small></span><input type="checkbox" value="' + esc(p.id) + '"' + (ag.indexOf(p.id) > -1 ? " checked" : "") + "></label>";
+        }).join("");
+      }).join("");
+    }
+    renderOut();
+    $("#outList").addEventListener("change", function () {
+      var ids = Array.prototype.map.call(document.querySelectorAll("#outList input:checked"), function (i) { return i.value; });
+      KR.store.set("agotados", ids); toast(ids.length ? ids.length + " plato(s) marcados como agotados" : "Carta completa");
+    });
+    $("#outReset").addEventListener("click", function () { KR.store.del("agotados"); renderOut(); toast("Carta completa"); });
+  })();
+  </script>
+</body>
+</html>
