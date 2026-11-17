@@ -120,12 +120,6 @@ KR.eventosDefault = [
     img: "assets/img/p0354-sm.jpg",
   },
   {
-    id: "ev-empresa", titulo: "Comidas y cenas de empresa", cat: "grupos",
-    fecha: "2026-12-12", hora: "13:30",
-    texto: "Menús de grupo para Navidad en una sala para 150 personas. Reserva tu fecha.",
-    img: "assets/img/p0396-sm.jpg",
-  },
-  {
     id: "ev-nochevieja", titulo: "Nochevieja en Konba Rika", cat: "fiesta",
     fecha: "2026-12-31", hora: "21:00",
     texto: "Cena, uvas con vistas al mar y fiesta hasta tarde.",

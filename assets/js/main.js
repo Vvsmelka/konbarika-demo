@@ -44,17 +44,7 @@
   mm && $$("a", mm).forEach((a) => a.addEventListener("click", () => setMenu(false)));
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(false); });
 
-  /* ---------- Reveal on scroll ---------- */
-  function observeReveal(root = document) {
-    const els = $$(".reveal:not(.is-in)", root);
-    if (reduce || !("IntersectionObserver" in window)) { els.forEach((el) => el.classList.add("is-in")); return; }
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add("is-in"); io.unobserve(en.target); } });
-    }, { threshold: 0.12 });
-    els.forEach((el) => io.observe(el));
-  }
-
-  /* ---------- Hero vídeo (montaje escritorio 16:9 / móvil 9:16) ---------- */
+  /* ---------- Portada: vídeo (montaje escritorio 16:9 / móvil 9:16) ---------- */
   const heroVideo = $("#heroVideo");
   if (heroVideo) {
     const mobile = window.matchMedia("(max-width: 760px)").matches;
@@ -67,92 +57,45 @@
       heroVideo.src = mobile ? heroVideo.dataset.mobile : heroVideo.dataset.desktop;
       heroVideo.play().catch(() => {});
     }
-    // Rótulo del plano que se ve: cada plano dura 2 s (+0,4 s de fundido)
-    const capitulos = mobile
-      ? ["El mural", "La entrada", "El ventanal", "La barra", "La campa", "La sala", "Las barricas", "La carta"]
-      : ["La campa", "La sala", "El mural", "La terraza", "La barra", "La furgo", "El ventanal", "La entrada", "El jardín"];
-    const chNum = $("#chNum"), chName = $("#chName"), chBar = $("#chBar");
-    let actual = -1;
-    const pintar = (i) => {
-      actual = i;
-      if (chNum) chNum.textContent = String(i + 1).padStart(2, "0");
-      if (chName) chName.textContent = capitulos[i];
-      if (chBar) { chBar.style.animation = "none"; void chBar.offsetWidth; chBar.style.animation = "chfill 2s linear forwards"; }
-    };
-    heroVideo.addEventListener("timeupdate", () => {
-      const i = Math.min(capitulos.length - 1, Math.max(0, Math.floor((heroVideo.currentTime - 0.2) / 2)));
-      if (i !== actual) pintar(i);
-    });
     // fuera de pantalla, el vídeo se para
     if ("IntersectionObserver" in window && !reduce) {
       new IntersectionObserver(([e]) => { e.isIntersecting ? heroVideo.play().catch(() => {}) : heroVideo.pause(); }).observe(heroVideo);
     }
   }
 
-  /* ---------- Eventos ---------- */
-  const posters = $("#posters");
-  let filtro = "all";
+  /* ---------- Eventos: lista sencilla ---------- */
+  const agenda = $("#agenda");
 
-  function icsFor(ev) {
-    const [h, m] = (ev.hora || "20:00").split(":");
-    const start = ev.fecha.replace(/-/g, "") + "T" + h + m + "00";
-    const endH = String(Math.min(23, parseInt(h, 10) + 3)).padStart(2, "0");
-    const end = ev.fecha.replace(/-/g, "") + "T" + endH + m + "00";
-    const ics = [
-      "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Konba Rika//Eventos//ES", "BEGIN:VEVENT",
-      "UID:" + ev.id + "@konbarika", "DTSTAMP:" + new Date().toISOString().replace(/[-:]/g, "").split(".")[0] + "Z",
-      "DTSTART;TZID=Europe/Madrid:" + start, "DTEND;TZID=Europe/Madrid:" + end,
-      "SUMMARY:" + ev.titulo + " (Konba Rika)", "DESCRIPTION:" + (ev.texto || ""),
-      "LOCATION:" + KR.info.direccion, "END:VEVENT", "END:VCALENDAR",
-    ].join("\r\n");
-    return "data:text/calendar;charset=utf-8," + encodeURIComponent(ics);
+  function proximos() {
+    const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
+    const todos = KR.getEventos();
+    const fut = todos.filter((e) => new Date(e.fecha + "T23:59:00") >= hoy);
+    return (fut.length ? fut : todos).slice(0, 5);
   }
 
-  function upcoming() {
-    const today = new Date(); today.setHours(0, 0, 0, 0);
-    const all = KR.getEventos();
-    const fut = all.filter((e) => new Date(e.fecha + "T23:59:00") >= today);
-    return fut.length ? fut : all;
-  }
-
-  const colores = ["c-sun", "c-sea", "c-sand", "c-paper"];
-  function renderEvents() {
-    if (!posters) return;
+  function renderEventos() {
+    if (!agenda) return;
     const esc = KR.esc;
-    const list = upcoming().filter((e) => filtro === "all" || e.cat === filtro);
-    if (!list.length) {
-      posters.innerHTML = '<p class="empty">No hay eventos de este tipo en la cartelera. Vuelve pronto o pregúntanos por teléfono.</p>';
+    const lista = proximos();
+    if (!lista.length) {
+      agenda.innerHTML = '<li class="empty">No hay eventos programados. Llámanos al 946 75 12 76.</li>';
       return;
     }
-    posters.innerHTML = list.map((ev, i) => {
+    agenda.innerHTML = lista.map((ev) => {
       const d = KR.fmtFecha(ev.fecha);
       return `
-        <article class="poster ${colores[i % colores.length]}${i === 0 ? " is-feature" : ""} reveal">
-          <div class="p-img"><img src="${esc(ev.img || "assets/img/p0352-sm.jpg")}" alt="" loading="lazy"></div>
-          <div class="p-body">
-            <div class="p-date"><b>${d.dia}</b><span>${d.mes}<br>${d.semana}</span></div>
+        <li class="ev">
+          <img class="ev-ph" src="${esc(ev.img || "assets/img/p0351-sm.jpg")}" alt="" loading="lazy">
+          <div class="ev-date"><b>${d.dia}</b><span><i>${d.mes}</i> <i>${d.semana}</i></span></div>
+          <div class="ev-main">
             <h3>${esc(ev.titulo)}</h3>
-            <p>${esc(ev.texto)}</p>
-            <div class="p-foot">
-              <span class="p-meta">${esc(ev.hora)} h · ${esc(KR.categorias[ev.cat] || "Evento")}</span>
-              <span class="p-acts">
-                <a class="icon-btn" href="${icsFor(ev)}" download="${esc(ev.id)}.ics" aria-label="Añadir ${esc(ev.titulo)} al calendario"><i class="ph ph-calendar-plus"></i></a>
-                <a class="btn btn-sm" href="#reservar" data-event="${esc(ev.id)}">Apúntate</a>
-              </span>
-            </div>
+            <span class="ev-hora">${esc(ev.hora)} h</span>
           </div>
-        </article>`;
+          <a class="btn btn-sm" href="#reservar" data-event="${esc(ev.id)}">Reservar</a>
+          <a class="ev-link" href="#reservar" data-event="${esc(ev.id)}" aria-label="Reservar para ${esc(ev.titulo)}"></a>
+        </li>`;
     }).join("");
-    observeReveal(posters);
   }
-
-  $$("#eventFilters .chip").forEach((chip) => {
-    chip.addEventListener("click", () => {
-      filtro = chip.dataset.cat;
-      $$("#eventFilters .chip").forEach((c) => c.setAttribute("aria-pressed", String(c === chip)));
-      renderEvents();
-    });
-  });
 
   /* ---------- Carta ---------- */
   function renderCarta() {
@@ -164,7 +107,7 @@
     if (pic) {
       pic.innerHTML = KR.carta.map((g) => `
         <div class="menu-group">
-          <h3><i class="ph ph-sun" aria-hidden="true"></i>${esc(g.nombre)}</h3>
+          <h3>${esc(g.nombre)}</h3>
           ${g.platos.map((p) => {
             const out = agotados.includes(p.id);
             return `<div class="dish${out ? " is-out" : ""}">
@@ -222,16 +165,8 @@
     } catch (e) { qrBox.textContent = "QR"; }
   }
 
-  /* ---------- Rincones (carrusel) ---------- */
-  const rin = $("#rincones");
-  if (rin) {
-    const step = () => { const c = $(".rin", rin); return c ? c.getBoundingClientRect().width + 18 : 300; };
-    $("#rinPrev") && $("#rinPrev").addEventListener("click", () => rin.scrollBy({ left: -step(), behavior: reduce ? "auto" : "smooth" }));
-    $("#rinNext") && $("#rinNext").addEventListener("click", () => rin.scrollBy({ left: step(), behavior: reduce ? "auto" : "smooth" }));
-  }
-
-  /* ---------- Galería: los vídeos se cargan y reproducen al verse ---------- */
-  const vids = $$("#masonry video[data-src]");
+  /* ---------- El sitio: los vídeos del mosaico se cargan y reproducen al verse ---------- */
+  const vids = $$(".mosaic video[data-src]");
   if (vids.length && "IntersectionObserver" in window) {
     const io = new IntersectionObserver((entries) => {
       entries.forEach((en) => {
@@ -241,8 +176,18 @@
           if (!reduce) v.play().catch(() => {});
         } else if (!v.paused) v.pause();
       });
-    }, { threshold: 0.35 });
+    }, { threshold: 0.3 });
     vids.forEach((v) => io.observe(v));
+  }
+
+  const moreBtn = $("#moreBtn");
+  const mosaicMore = $("#mosaicMore");
+  if (moreBtn && mosaicMore) {
+    moreBtn.addEventListener("click", () => {
+      mosaicMore.hidden = false;
+      moreBtn.setAttribute("aria-expanded", "true");
+      moreBtn.closest(".more-row").hidden = true;
+    });
   }
 
   /* ---------- Reservas ---------- */
@@ -294,7 +239,6 @@
     }));
   }
 
-  renderEvents();
+  renderEventos();
   renderCarta();
-  observeReveal();
 })();

@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#12213a">
   <link rel="stylesheet" href="assets/css/fonts-bricolage.css">
   <link rel="stylesheet" href="assets/vendor/phosphor/style.css">
-  <link rel="stylesheet" href="assets/css/site.css?v=3">
+  <link rel="stylesheet" href="assets/css/site.css?v=4">
   <style>
     .p-head { background: var(--navy); color: var(--on-navy); }
     .p-head .wrap { display: flex; align-items: center; gap: 16px; height: 72px; }
@@ -58,7 +58,7 @@
       <a class="brand" href="index.html" style="color:inherit;text-decoration:none">Konba Rika</a>
       <span class="tag">Panel de equipo</span>
       <div class="links">
-        <a class="btn btn-sm" href="index.html#cartelera">Ver web</a>
+        <a class="btn btn-sm" href="index.html#eventos">Ver web</a>
         <a class="btn btn-sm btn-sand" href="carta.html?mesa=12">Ver carta</a>
       </div>
     </div>
@@ -89,20 +89,6 @@
             <label for="e-hora">Hora</label>
             <input id="e-hora" type="time" value="20:00" required>
             <span class="err" aria-live="polite"></span>
-          </div>
-          <div class="field full">
-            <label for="e-cat">Tipo</label>
-            <select id="e-cat">
-              <option value="musica">Música</option>
-              <option value="gastro">Gastronomía</option>
-              <option value="grupos">Grupos</option>
-              <option value="fiesta">Fiesta</option>
-            </select>
-          </div>
-          <div class="field full">
-            <label for="e-texto">Descripción corta</label>
-            <textarea id="e-texto" maxlength="160"></textarea>
-            <span class="help">Una o dos frases. Máximo 160 caracteres.</span>
           </div>
           <fieldset class="field full" style="border:0;padding:0;margin:0">
             <legend style="font-size:.9rem;font-weight:500;margin-bottom:8px">Foto</legend>
@@ -141,7 +127,7 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="assets/js/data.js?v=3"></script>
+  <script src="assets/js/data.js?v=4"></script>
   <script>
   (function () {
     var esc = KR.esc;
@@ -189,9 +175,9 @@
       if (!ok) return;
       var extra = KR.store.get("eventos", []);
       extra.push({
-        id: "ev-" + Date.now(), titulo: $("#e-titulo").value.trim(), cat: $("#e-cat").value,
+        id: "ev-" + Date.now(), titulo: $("#e-titulo").value.trim(), cat: "musica",
         fecha: $("#e-fecha").value, hora: $("#e-hora").value,
-        texto: $("#e-texto").value.trim() || "Más información en el local.",
+        texto: "",
         img: (document.querySelector('input[name="foto"]:checked') || {}).value || "assets/img/p0351-sm.jpg",
       });
       if (!KR.store.set("eventos", extra)) { toast("No se pudo guardar en este navegador"); return; }
