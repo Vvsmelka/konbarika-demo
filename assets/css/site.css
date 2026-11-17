@@ -151,6 +151,13 @@ p { margin: 0; }
 .hero-addr:hover { color: var(--sand); }
 .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
 .hero .btn { --hard: var(--sand); }
+/* pausa / reproducir el vídeo de portada (y plan B si el móvil bloquea la reproducción automática) */
+.hero-play {
+  position: absolute; z-index: 4; top: 90px; right: var(--gutter); width: 44px; height: 44px; border-radius: 999px;
+  display: inline-flex; align-items: center; justify-content: center; font-size: 1.1rem; cursor: pointer;
+  border: 2px solid rgba(245, 240, 230, 0.75); background: rgba(20, 33, 58, 0.35); color: var(--paper);
+}
+.hero-play:hover { background: rgba(20, 33, 58, 0.6); }
 @media (prefers-reduced-motion: no-preference) {
   .hero-in { opacity: 0; transform: translateY(18px); animation: rise 0.9s var(--ease) 0.2s forwards; }
   .wordmark.hero-in { animation-delay: 0.05s; }

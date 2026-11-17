@@ -2,7 +2,6 @@
   "use strict";
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ---------- Toast ---------- */
   const toastEl = $("#toast");
@@ -44,22 +43,70 @@
   mm && $$("a", mm).forEach((a) => a.addEventListener("click", () => setMenu(false)));
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(false); });
 
+  /* ---------- Vídeos: que se reproduzcan también en el móvil ----------
+     Van siempre sin sonido y en línea, también con «Reducir movimiento» activado (la portada tiene
+     botón de pausa). Si el navegador bloquea la reproducción automática (ahorro de batería en iPhone,
+     ahorro de datos en Android), los vídeos que están a la vista arrancan con el primer toque. */
+  const enPantalla = new Set();
+  const bloqueados = new Set();
+  let pausaUsuario = false;
+  const gestos = ["touchstart", "touchend", "click", "keydown"];
+  let esperandoGesto = false;
+
+  function prepararVideo(v) {
+    v.muted = true; v.defaultMuted = true; v.playsInline = true;
+    v.setAttribute("muted", ""); v.setAttribute("playsinline", ""); v.setAttribute("webkit-playsinline", "");
+  }
+  function reproducir(v) {
+    prepararVideo(v);
+    const p = v.play();
+    if (p && typeof p.then === "function") {
+      p.then(() => { bloqueados.delete(v); pintarBoton(); })
+        .catch(() => { bloqueados.add(v); esperarGesto(); pintarBoton(); });
+    }
+  }
+  function alGesto(e) {
+    if (e.target && e.target.closest && e.target.closest("#heroPlay")) return; // ese botón va por su cuenta
+    esperandoGesto = false;
+    gestos.forEach((t) => document.removeEventListener(t, alGesto, true));
+    bloqueados.forEach((v) => { if (enPantalla.has(v) && !(v === heroVideo && pausaUsuario)) reproducir(v); });
+  }
+  function esperarGesto() {
+    if (esperandoGesto) return;
+    esperandoGesto = true;
+    gestos.forEach((t) => document.addEventListener(t, alGesto, { capture: true, passive: true }));
+  }
+
   /* ---------- Portada: vídeo (montaje escritorio 16:9 / móvil 9:16) ---------- */
   const heroVideo = $("#heroVideo");
+  const heroBtn = $("#heroPlay");
+  function pintarBoton() {
+    if (!heroBtn || !heroVideo) return;
+    const parado = heroVideo.paused;
+    heroBtn.innerHTML = parado ? '<i class="ph ph-play"></i>' : '<i class="ph ph-pause"></i>';
+    heroBtn.setAttribute("aria-label", parado ? "Reproducir vídeo" : "Pausar vídeo");
+  }
   if (heroVideo) {
     const mobile = window.matchMedia("(max-width: 760px)").matches;
     heroVideo.poster = mobile ? heroVideo.dataset.mobilePoster : heroVideo.dataset.desktopPoster;
     const media = heroVideo.closest(".hero-media");
     if (media) media.style.backgroundImage = "url('" + heroVideo.poster + "')";
-    if (reduce) {
-      heroVideo.removeAttribute("autoplay");
-    } else {
-      heroVideo.src = mobile ? heroVideo.dataset.mobile : heroVideo.dataset.desktop;
-      heroVideo.play().catch(() => {});
-    }
+    prepararVideo(heroVideo);
+    heroVideo.src = mobile ? heroVideo.dataset.mobile : heroVideo.dataset.desktop;
+    enPantalla.add(heroVideo);
+    reproducir(heroVideo);
+    heroVideo.addEventListener("play", pintarBoton);
+    heroVideo.addEventListener("pause", pintarBoton);
+    heroBtn && heroBtn.addEventListener("click", () => {
+      if (heroVideo.paused) { pausaUsuario = false; reproducir(heroVideo); }
+      else { pausaUsuario = true; heroVideo.pause(); }
+    });
     // fuera de pantalla, el vídeo se para
-    if ("IntersectionObserver" in window && !reduce) {
-      new IntersectionObserver(([e]) => { e.isIntersecting ? heroVideo.play().catch(() => {}) : heroVideo.pause(); }).observe(heroVideo);
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(([e]) => {
+        if (e.isIntersecting) { enPantalla.add(heroVideo); if (!pausaUsuario) reproducir(heroVideo); }
+        else { enPantalla.delete(heroVideo); heroVideo.pause(); }
+      }).observe(heroVideo);
     }
   }
 
@@ -172,9 +219,13 @@
       entries.forEach((en) => {
         const v = en.target;
         if (en.isIntersecting) {
-          if (!v.getAttribute("src")) v.src = v.dataset.src;
-          if (!reduce) v.play().catch(() => {});
-        } else if (!v.paused) v.pause();
+          enPantalla.add(v);
+          if (!v.getAttribute("src")) { prepararVideo(v); v.src = v.dataset.src; }
+          reproducir(v);
+        } else {
+          enPantalla.delete(v);
+          if (!v.paused) v.pause();
+        }
       });
     }, { threshold: 0.3 });
     vids.forEach((v) => io.observe(v));
